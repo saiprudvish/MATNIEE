@@ -61,6 +61,9 @@ img{
     background-color: #E5E5E5;
     color: #3C4858;
 }
+.mod{
+    cursor: pointer;
+}
 
 .mdi-36px {
     font-size: 39px;
@@ -97,7 +100,7 @@ a:hover{
 
 /*modal*/
 .background{
-   background-color:#3C4858;
+   background-color:#ff0000;
    color: #3C4858;
     border-radius: 20px;
     border: 0px;

@@ -38,6 +38,18 @@ getPrimeMovies():Observable<any>{
 getAhaMovies():Observable<any>{
   return this.hc.get<any>('http://localhost:3000/aha/')
 }
+getTopShows():Observable<any>{
+  return this.hc.get<any>('http://localhost:3000/topshows/')
+}
+getShowsMovieRatingById(id):Observable<any>{
+  return this.hc.get<any>('http://localhost:3000/topshows/'+id)
+}
+getTopMovies():Observable<any>{
+  return this.hc.get<any>('http://localhost:3000/topmovies/')
+}
+getTopMovieRatingById(id):Observable<any>{
+  return this.hc.get<any>('http://localhost:3000/topmovies/'+id)
+}
  //to check login status
  userLoginStatus():boolean{
   if(localStorage.getItem("username")==null){

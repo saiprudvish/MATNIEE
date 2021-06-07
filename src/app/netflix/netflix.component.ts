@@ -9,6 +9,7 @@ import { FirstService } from '../first.service';
 export class NetflixComponent implements OnInit {
 
   NetflixMovies;
+  searchTerm:string;
   constructor(private nObj:FirstService) { }
   
   ngOnInit() : void {

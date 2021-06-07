@@ -23,6 +23,13 @@ import { OttahaComponent } from './ottaha/ottaha.component';
 import { OttnetflixComponent } from './ottnetflix/ottnetflix.component';
 import { OttprimeComponent } from './ottprime/ottprime.component';
 import { OtthotstarComponent } from './otthotstar/otthotstar.component';
+import { TopmoviesComponent } from './topmovies/topmovies.component';
+import { TvshowsComponent } from './tvshows/tvshows.component';
+import { OtttopmoviesComponent } from './otttopmovies/otttopmovies.component';
+import { TopratingComponent } from './toprating/toprating.component';
+import { OttshowsComponent } from './ottshows/ottshows.component';
+import { ShowsratingComponent } from './showsrating/showsrating.component';
+import { SearchPipe } from './search.pipe';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,14 @@ import { OtthotstarComponent } from './otthotstar/otthotstar.component';
     OttahaComponent,
     OttnetflixComponent,
     OttprimeComponent,
-    OtthotstarComponent
+    OtthotstarComponent,
+    TopmoviesComponent,
+    TvshowsComponent,
+    OtttopmoviesComponent,
+    TopratingComponent,
+    OttshowsComponent,
+    ShowsratingComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,

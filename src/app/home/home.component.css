@@ -1,6 +1,9 @@
 .ott:hover{
     transform: scale(1.6);
  }
+ input{
+     border-radius: 12px;
+ }
  .card{
      border: 1px black;
      width: 90%;

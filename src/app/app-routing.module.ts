@@ -12,11 +12,22 @@ import { RatingHotstarComponent } from './rating-hotstar/rating-hotstar.componen
 import { RatingahaComponent } from './ratingaha/ratingaha.component';
 import { RatingnetflixComponent } from './ratingnetflix/ratingnetflix.component';
 import { RatingprimeComponent } from './ratingprime/ratingprime.component';
+import { TopmoviesComponent } from './topmovies/topmovies.component';
+import { TopratingComponent } from './toprating/toprating.component';
+import { TvshowsComponent } from './tvshows/tvshows.component';
 import { UpcommingComponent } from './upcomming/upcomming.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 
-const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',component:MustwatchComponent},
+const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',component:MustwatchComponent,children:[
+  {path:'movies',component:TopmoviesComponent},
+
+  {path:'shows',component:TvshowsComponent},
+  {path:'',redirectTo:"/watch/movies",pathMatch:"full"}
+]},
 {path:'upcomming',component:UpcommingComponent},
+
+{path:'movies/:id',component:TopratingComponent},
+{path:'shows/:id',component:TopratingComponent},
 {path:'watchlist',component:WatchlistComponent},
 {path:'login',component:LoginComponent},
 {path:'', redirectTo:'/login',pathMatch:'full'},
