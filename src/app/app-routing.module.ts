@@ -8,6 +8,7 @@ import { MovieratingComponent } from './movierating/movierating.component';
 import { MustwatchComponent } from './mustwatch/mustwatch.component';
 import { NetflixComponent } from './netflix/netflix.component';
 import { PrimeComponent } from './prime/prime.component';
+import { ProfileComponent } from './profile/profile.component';
 import { RatingHotstarComponent } from './rating-hotstar/rating-hotstar.component';
 import { RatingahaComponent } from './ratingaha/ratingaha.component';
 import { RatingnetflixComponent } from './ratingnetflix/ratingnetflix.component';
@@ -29,6 +30,7 @@ const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',com
 {path:'movies/:id',component:TopratingComponent},
 {path:'shows/:id',component:TopratingComponent},
 {path:'watchlist',component:WatchlistComponent},
+{path:'profile',component:ProfileComponent},
 {path:'login',component:LoginComponent},
 {path:'', redirectTo:'/login',pathMatch:'full'},
 {path:'prime',component:PrimeComponent},

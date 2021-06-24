@@ -8,6 +8,9 @@ const bcryptjs=require("bcryptjs")
 //body parsing middlleware
 userApi.use(exp.json())
 
+
+const checkToken=require("./middlewares/verify-token")
+
 //import mongoclient
 const mc=require("mongodb").MongoClient
 
@@ -71,18 +74,29 @@ userApi.post("/createuser", expressErrorHandler(async (req, res, next) => {
     //search for existing user
     let user = await userCollectionObj.findOne({ username: newUser.username })
     //if user existed
-    if (user !== null) {
+    if (user !== null ) {
         res.send({ message: "User already existed" })
     }
-    else {
+    else if(newUser.password!=newUser.retypepassword ){
+        res.send({message:"password not matched"})
+
+    }
+    else if(newUser.agree!=true){
+        res.send({message:"please agree to Register"})
+    }
+ 
+    else{
          //hash password
         let hashedPassword = await bcryptjs.hash(newUser.password, 7)
+        let hashedRPassword = await bcryptjs.hash(newUser.retypepassword, 7)
         //replace password
          newUser.password = hashedPassword;
+         newUser.retypepassword=hashedRPassword
         //insert
         await userCollectionObj.insertOne(newUser)
         res.send({ message: "User created" })
     }
+  
 }))
 
 //http://localhost:3000/user/updateuser/<username>
@@ -136,9 +150,9 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
         }
         else {
             //create a token
-            let signedToken =  jwt.sign({ username: credentials.username }, 'abcdef', { expiresIn: 120 })
+            let signedToken =  jwt.sign({ username: credentials.username }, 'abcdef', { expiresIn: 10 })
             //send token to client
-            res.send({ message: "login success", token: signedToken,username: credentials.username })
+            res.send({ message: "login success", token: signedToken,username: credentials.username ,userObj:user })
         }
 
     }
@@ -146,6 +160,13 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
 }))
 
 
+
+
+
+//dummy route to create protected resource
+userApi.get("/testing",checkToken,(req,res)=>{
+    res.send({message:"This is protected data"})
+})
 
 
 

@@ -18,17 +18,20 @@
       <li class="nav-item">
         <a class="nav-link text-white" routerLink='upcomming' routerLinkActive="active">Upcomming</a>
       </li>
-      <li class="nav-item " *ngIf="fs.userLoginStatus()">
+      <li class="nav-item " *ngIf="us.userLoginStatus">
         <a class="nav-link text-white"  routerLink="watchlist" routerLinkActive="active">Watchlist</a>
       </li>
-      <li class="nav-item" *ngIf="!fs.userLoginStatus()">
+      <li class="nav-item " *ngIf="us.userLoginStatus">
+        <a class="nav-link text-white"  routerLink="profile" routerLinkActive="active">Profile</a>
+      </li>
+      <li class="nav-item" *ngIf="!us.userLoginStatus">
         <a class="nav-link text-white" routerLink="login" routerLinkActive="active" data-bs-toggle="collapse"
           data-bs-target=".navbar-collapse.show">Login</a>
       </li>
 
-      <li class="nav-item" *ngIf="fs.userLoginStatus()">
+      <li class="nav-item" *ngIf="us.userLoginStatus">
         <a class="nav-link text-white" routerLink="login" routerLinkActive="active" data-bs-toggle="collapse"
-          data-bs-target=".navbar-collapse.show"  (click)="fs.userLogout()">Logout</a>
+          data-bs-target=".navbar-collapse.show"  (click)=userLogout()>Logout</a>
       </li>
     
 
@@ -52,26 +55,26 @@
 
                         <h4 class="text-center text-white mt-5 mb-4">CREATE ACCOUNT</h4>
 
-                        <form>
+                        <form  #ref="ngForm" (ngSubmit)="onSignup(ref.value)">
                            <div class="form-floating mb-3 ms-sm-4 me-sm-4"> 
-                               <input type="text" name="firstname" id="fn" class="form-control " placeholder="Full Name" >
-                               <label for="fn">Full Name</label>
+                               <input type="text" name="username" id="username" class="form-control" name="username" placeholder="Full Name"  ngModel >
+                               <label for="username">Full Name</label>
                            </div>
                
                            <div class="form-floating mb-3 ms-sm-4 me-sm-4">
-                                <input type="text" name="email" id="em" class="form-control" placeholder="Email">
+                                <input type="text" name="email" id="em" class="form-control" placeholder="Email" name="email" ngModel>
                                 <label for="em">Email</label>
                            </div>
 
                            <div class="form-floating ms-sm-4 me-sm-4 mb-3 ">
-                               <input type="text" name="mobilenumber" id="mbno" class="form-control" placeholder="Mobile Number" >
+                               <input type="text" name="mobilenumber" id="mbno" class="form-control" placeholder="Mobile Number" name="mobileno" ngModel >
                                 <label for="mbno">Mobile Number</label>
                            </div>
                
                            <div class="form-floating mb-3 ms-sm-4 me-sm-4">
-                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                              <option value="male">Male</option>
-                              <option value="female">Female</option>
+                            <select class="form-select" id="floatingSelect" aria-label="Floating label select example" ngModel >
+                              <option value="male" ngModel>Male</option>
+                              <option value="female" ngModel>Female</option>
                             </select>
                             <label for="floatingSelect">Gender</label>
                           </div>
@@ -79,14 +82,14 @@
                           <div class="row g-3 mb-3 ms-sm-3 me-sm-3">
                             <div class="col-md">
                               <div class="form-floating">
-                                <input type="password" class="form-control" id="pw" placeholder="Password">
-                                <label for="pw">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+                                <label for="password">Password</label>
                               </div>
                             </div>
                             <div class="col-md">
                               <div class="form-floating ">
-                                <input type="password" class="form-control" id="rpw" placeholder="Password">
-                                <label for="rpw">Retype-Password</label>
+                                <input type="password" class="form-control" id="password" name="retypepassword" placeholder="Password" ngModel>
+                                <label for="password">Retype-Password</label>
                               </div>
                             </div>
                           </div>
@@ -95,14 +98,14 @@
                          
                
                             <div class="form-check mb-2 d-flex justify-content-center">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="agree" ngModel>
                                 <label class="form-check-label text-white ms-1 mt-1" for="flexCheckDefault">
                                   I agree to the terms and conditions 
                                 </label>
                               </div>
 
                             <div class="mb-3 text-center">
-                              <button class="btn btn-warning"><i class="fas fa-user-plus me-2"></i>Register</button>
+                              <button class="btn btn-warning " type="submit" ><i class="fas fa-user-plus me-2"></i>Register</button>
                             </div>
                
                             

@@ -50,18 +50,18 @@ getTopMovies():Observable<any>{
 getTopMovieRatingById(id):Observable<any>{
   return this.hc.get<any>('http://localhost:3000/topmovies/'+id)
 }
- //to check login status
- userLoginStatus():boolean{
-  if(localStorage.getItem("username")==null){
-    return false;
-  }
-  else{
-    return true;
-  }
-}
+//  //to check login status
+//  userLoginStatus():boolean{
+//   if(localStorage.getItem("username")==null){
+//     return false;
+//   }
+//   else{
+//     return true;
+//   }
+// }
 
-//logout
-userLogout(){
-  localStorage.clear();
-}
-}
+// //logout
+// userLogout(){
+//   localStorage.clear();
+// }
+ }

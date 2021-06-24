@@ -28,5 +28,5 @@ app.use((err, req, res, next) => {
 
 
 //assign port
-const port = 3000;
+const port = 4000;
 app.listen(port, () => console.log(`server on ${port}...`))

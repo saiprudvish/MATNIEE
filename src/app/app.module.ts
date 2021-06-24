@@ -30,6 +30,9 @@ import { TopratingComponent } from './toprating/toprating.component';
 import { OttshowsComponent } from './ottshows/ottshows.component';
 import { ShowsratingComponent } from './showsrating/showsrating.component';
 import { SearchPipe } from './search.pipe';
+import { ProfileComponent } from './profile/profile.component';
+import { HTTP_INTERCEPTORS} from '@angular/common/http';
+import { AuthorizationService } from './authorization.service';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,8 @@ import { SearchPipe } from './search.pipe';
     TopratingComponent,
     OttshowsComponent,
     ShowsratingComponent,
-    SearchPipe
+    SearchPipe,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +71,11 @@ import { SearchPipe } from './search.pipe';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [{ 
+     provide:HTTP_INTERCEPTORS,
+    useClass:AuthorizationService,
+     multi:true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
