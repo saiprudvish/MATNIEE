@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { AdminService } from '../admin.service';
 import { FirstService } from '../first.service';
 
 @Component({
@@ -16,9 +17,22 @@ export class HomeComponent implements OnInit {
 
 
   Trendmovies;
-  constructor(private fs:FirstService,private router:Router) { }
+  products=[];
+  constructor(private fs:FirstService,private router:Router,private as:AdminService) { }
 
   ngOnInit(): void {
+
+
+    this.as.getProducts().subscribe(
+      res=>{
+        this.products=res.message;
+      },
+      err=>{
+        console.log("err in reading products ",err)
+        console.log("Something went wrong in reading products")
+      }
+    )
+   
     this.mySubscription= this.fs.getTrendMovies().subscribe(
       userData=>{
         //assign movies
@@ -58,7 +72,6 @@ export class HomeComponent implements OnInit {
     this.productsSentByChild.push(name)
     console.log(this.productsSentByChild)
   }
-
  
      
    }

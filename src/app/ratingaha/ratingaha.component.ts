@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FirstService } from '../first.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-ratingaha',
@@ -10,7 +11,7 @@ import { FirstService } from '../first.service';
 export class RatingahaComponent implements OnInit {
 
   ahaObj;
-  constructor(private ar:ActivatedRoute,private fs:FirstService) { }
+  constructor(private ar:ActivatedRoute,private fs:FirstService,private userService:UserService) { }
 
 
   ngOnInit(): void {
@@ -28,4 +29,25 @@ export class RatingahaComponent implements OnInit {
         }
       )
   }
+
+   //movie selected by user to add in watchlist
+   onProductSelect(productObject){
+    // console.log(productObject)
+    let username=localStorage.getItem("username")
+
+    let newUserProductObj={username,productObject}
+    //  console.log(newUserProductObj)
+     //product selected by user
+  
+   this.userService.sendProductToUserCart(newUserProductObj).subscribe(
+     res=>{
+      alert(res['message'])
+
+     },
+     err=>{
+       console.log("err in posting product to cart ",err)
+       alert("Something wrong in adding product to cart...")
+     }
+   )
+}
 }

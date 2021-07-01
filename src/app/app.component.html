@@ -41,7 +41,7 @@
       <!--Sign up modal-->
 
       
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!us.userLoginStatus">
 
         <a class=" text-white  mod nav-link " data-bs-target="#md" data-bs-toggle="modal">Sign Up</a>
 
@@ -94,6 +94,9 @@
                             </div>
                           </div>
 
+                           <input type="file" name="photo"  class="form-control mb-3" ngModel  (change)="selectFile($event)">
+                          
+            
 
                          
                
@@ -103,6 +106,7 @@
                                   I agree to the terms and conditions 
                                 </label>
                               </div>
+
 
                             <div class="mb-3 text-center">
                               <button class="btn btn-warning " type="submit" ><i class="fas fa-user-plus me-2"></i>Register</button>

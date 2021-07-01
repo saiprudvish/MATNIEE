@@ -1,3 +1,4 @@
+import { formatCurrency } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FirstService } from './first.service';
@@ -11,14 +12,28 @@ import { UserService } from './user.service';
 export class AppComponent {
   title = 'Angular';
   constructor(public us:UserService,private router:Router){}
+     
 
+   file:File;
+
+   selectFile(event){
+    this.file= event.target.files[0]
+   console.log(this.file)
+    
+    }
 onSignup(userObj){
-  this.us.createUser(userObj).subscribe(
+
+  //create FOrmData obj
+  let formData=new FormData();
+    //add file
+   formData.append("photo",this.file,this.file.name)
+  //add userObj
+    formData.append("userObj",JSON.stringify(userObj))
+  this.us.createUser(formData).subscribe(
     res=>{
       if(res.message==="User created"){
         alert("User created")
         //navigate to login component
-          this.router.navigateByUrl("/login")
       }
       else{
         alert(res.message)

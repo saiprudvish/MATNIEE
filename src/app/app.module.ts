@@ -33,6 +33,8 @@ import { SearchPipe } from './search.pipe';
 import { ProfileComponent } from './profile/profile.component';
 import { HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthorizationService } from './authorization.service';
+import { UsercartComponent } from './usercart/usercart.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -63,12 +65,14 @@ import { AuthorizationService } from './authorization.service';
     OttshowsComponent,
     ShowsratingComponent,
     SearchPipe,
-    ProfileComponent
+    ProfileComponent,
+    UsercartComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    SharedModule,
     AppRoutingModule
   ],
   providers: [{ 

@@ -9,14 +9,23 @@ export class UserService {
   
   userLoginStatus=false;
  //inject http client object
- constructor(private hc:HttpClient) { }
-
+ constructor(private hc:HttpClient) { 
+ if(localStorage.getItem('username')!=null){
+   this.userLoginStatus=true;
+ }
+ }
  createUser(userObj):Observable<any>{
    return  this.hc.post("/user/createuser",userObj)
  }
 
  loginUser(credentials):Observable<any>{
-   return  this.hc.post("/user/login",credentials)
+  if(credentials.type==="admin"){
+    return  this.hc.post("/admin/login",credentials)
+  }
+  if(credentials.type==="user"){
+    return  this.hc.post("/user/login",credentials)
+  }
+ 
  }
 
 
@@ -33,4 +42,12 @@ export class UserService {
  updateUser(){
 
  }
+
+ sendProductToUserCart(userProductObj):Observable<any>{
+
+  return this.hc.post("/user/add-to-cart",userProductObj)
+}
+getProductsFromUserCart(username):Observable<any>{
+  return this.hc.get(`/user/getproducts/${username}`)
+}
 }

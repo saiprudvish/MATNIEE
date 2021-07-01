@@ -7,7 +7,7 @@ import { FirstService } from '../first.service';
   styleUrls: ['./prime.component.css']
 })
 export class PrimeComponent implements OnInit {
-
+  searchTerm:string;
   primeMovies;
   constructor(private pObj:FirstService) { }
 

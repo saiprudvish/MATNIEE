@@ -8,42 +8,20 @@ const bcryptjs=require("bcryptjs")
 //body parsing middlleware
 userApi.use(exp.json())
 
+const multerObj=require("./middlewares/multerCloudinary")
 
-const checkToken=require("./middlewares/verify-token")
-
-//import mongoclient
-const mc=require("mongodb").MongoClient
+require("dotenv").config()
 
 
-
-//connection string
-const databaseUrl="mongodb+srv://prudvish_database:Sai_7@database@cluster1.bxt0f.mongodb.net/prudvishdb1?retryWrites=true&w=majority"
-
-let userCollectionObj;
-
-//connect to DB
-mc.connect(databaseUrl, {useNewUrlParser:true,  useUnifiedTopology: true}, (err, client) => {
-
-    if (err) {
-        console.log("err in db connection", err);
-    }
-    else {
-        //get database object
-        let databaseObj = client.db("prudvishdb1")
-        //create collection object
-       userCollectionObj= databaseObj.collection("usercollection")
-
-        console.log("connected to database")
-
-    }
-})
-
+const checkToken=require("./middlewares/verify-token");
+const expressAsyncHandler = require('express-async-handler');
 
 
 //http://localhost:3000/user/getusers
 //get users
 userApi.get("/getusers", expressErrorHandler(async (req, res) => {
-
+   
+    let userCollectionObj = req.app.get("userCollectionObj")
     let userList = await userCollectionObj.find().toArray()
     res.send({ message: userList })
 
@@ -52,7 +30,8 @@ userApi.get("/getusers", expressErrorHandler(async (req, res) => {
 
 //get user by username
 userApi.get("/getuser/:username", expressErrorHandler(async (req, res, next) => {
-
+      
+    let userCollectionObj = req.app.get("userCollectionObj")
     //get username from url
     let un = req.params.username;
     //search
@@ -68,9 +47,12 @@ userApi.get("/getuser/:username", expressErrorHandler(async (req, res, next) => 
 
 //http://localhost:3000/user/createuser
 //create user
-userApi.post("/createuser", expressErrorHandler(async (req, res, next) => {
+userApi.post("/createuser",multerObj.single('photo'),expressErrorHandler(async (req, res, next) => {
+
+    let userCollectionObj = req.app.get("userCollectionObj")
     //get user obj
-    let newUser = req.body;
+    let newUser = JSON.parse(req.body.userObj)
+
     //search for existing user
     let user = await userCollectionObj.findOne({ username: newUser.username })
     //if user existed
@@ -92,6 +74,9 @@ userApi.post("/createuser", expressErrorHandler(async (req, res, next) => {
         //replace password
          newUser.password = hashedPassword;
          newUser.retypepassword=hashedRPassword
+         //add image URL
+         newUser.profileImage=req.file.path;
+        
         //insert
         await userCollectionObj.insertOne(newUser)
         res.send({ message: "User created" })
@@ -102,6 +87,8 @@ userApi.post("/createuser", expressErrorHandler(async (req, res, next) => {
 //http://localhost:3000/user/updateuser/<username>
 
 userApi.put("/updateuser/:username", expressErrorHandler(async (req, res, next) => {
+
+    let userCollectionObj = req.app.get("userCollectionObj")
 
     //get modified user
     let modifiedUser = req.body;
@@ -115,6 +102,8 @@ userApi.put("/updateuser/:username", expressErrorHandler(async (req, res, next) 
 
 //delete user
 userApi.delete("/deleteuser/:username", expressErrorHandler(async (req, res) => {
+
+    let userCollectionObj = req.app.get("userCollectionObj")
 
     //get username from url
     let un = req.params.username;
@@ -133,6 +122,8 @@ userApi.delete("/deleteuser/:username", expressErrorHandler(async (req, res) => 
 //user login
 userApi.post('/login', expressErrorHandler(async (req, res) => {
 
+    let userCollectionObj = req.app.get("userCollectionObj")
+
     //get user credetials
     let credentials = req.body;
     //search user by username
@@ -150,7 +141,7 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
         }
         else {
             //create a token
-            let signedToken =  jwt.sign({ username: credentials.username }, 'abcdef', { expiresIn: 10 })
+            let signedToken =  jwt.sign({ username: credentials.username }, process.env.SECRET, { expiresIn: 10 })
             //send token to client
             res.send({ message: "login success", token: signedToken,username: credentials.username ,userObj:user })
         }
@@ -159,7 +150,65 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
 
 }))
 
+//add to cart
+userApi.post("/add-to-cart",expressAsyncHandler(async (req,res,next)=>{
 
+
+    let userCartCollectionObject = req.app.get("userCartCollectionObject")
+
+    let newProdObject=req.body;
+    // console.log(newProdObject)
+
+      //find usercartcollection 
+     let userCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
+
+      //if usercartobj not there not existed
+        if(userCartObj===null){
+          //create new obj
+          let products=[];
+          if(newProdObject.productObject.name)
+          products.push(newProdObject.productObject)
+
+          let newUserCartObject = { username: newProdObject.username, products }
+           //console.log(newUserCartObject)
+
+           //insert it
+        await userCartCollectionObject.insertOne(newUserCartObject)
+        res.send({message:"New Movie added"})
+        }
+        else{
+        //if existed
+
+        //push productObject to products array
+         userCartObj.products.push(newProdObject.productObject)
+         //update document
+        await userCartCollectionObject.updateOne({ username: newProdObject.username }, { $set: { ...userCartObj } })
+        let latestCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
+         res.send({ message: "New product Added", latestCartObj: latestCartObj })
+        }
+    
+}))
+
+
+
+//get products from user cart
+userApi.get("/getproducts/:username", expressErrorHandler(async (req, res, next) => {
+
+    let userCartCollectionObject = req.app.get("userCartCollectionObject")
+
+    let un = req.params.username;
+
+    let userProdObj = await userCartCollectionObject.findOne({ username: un })
+
+    if (userProdObj === null) {
+        res.send({ message: "Watchlist-empty" })
+    }
+    else {
+        res.send({ message: userProdObj })
+    }
+
+
+}))
 
 
 
@@ -167,6 +216,7 @@ userApi.post('/login', expressErrorHandler(async (req, res) => {
 userApi.get("/testing",checkToken,(req,res)=>{
     res.send({message:"This is protected data"})
 })
+
 
 
 

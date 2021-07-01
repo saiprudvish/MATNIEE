@@ -1,3 +1,4 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
@@ -26,7 +27,12 @@ export class LoginComponent implements OnInit {
     //update userloginstatus
     this.us.userLoginStatus=true;
             //navigate to user profile
-            this.router.navigateByUrl("/i")
+            if(userCredentials.type==="user"){
+               this.router.navigateByUrl('/profile')
+            }
+            if(userCredentials.type==="admin"){
+              this.router.navigateByUrl("/admin")
+              }
           }
           else{
             alert(res.message)

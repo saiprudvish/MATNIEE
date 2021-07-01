@@ -8,13 +8,48 @@ app.use(exp.static(path.join(__dirname, './dist/angular/')))
 
 //import APIS
 const userApi = require("./APIS/user-api")
+const adminApi = require('./APIS/admin-api')
+const productApi = require("./APIS/product-api")
+//import mongoclient
+const mc=require("mongodb").MongoClient
+require("dotenv").config()
+
+
+//connection string
+const databaseUrl=process.env.DATABASE_URL;
+
+
+//connect to DB
+mc.connect(databaseUrl, {useNewUrlParser:true,  useUnifiedTopology: true}, (err, client) => {
+
+    if (err) {
+        console.log("err in db connection", err);
+    }
+    else {
+        //get database object
+        let databaseObj = client.db("prudvishdb1")
+        //create collection object
+    let  userCollectionObj= databaseObj.collection("usercollection")
+    let  productCollectionObject=databaseObj.collection("productcollection")
+    let  userCartCollectionObject=databaseObj.collection("usercartcollection")
+    app.set("userCollectionObj",userCollectionObj)
+    app.set("productCollectionObject",productCollectionObject)
+    app.set("userCartCollectionObject",userCartCollectionObject)
+
+        console.log("connected to database")
+
+    }
+})
+
+
+
 
 
 
 //execute specific api based on path
 app.use("/user", userApi)
-
-
+app.use("/admin", adminApi)
+app.use("/product",productApi)
 //invalid path
 app.use((req, res, next) => {
 
@@ -28,5 +63,5 @@ app.use((err, req, res, next) => {
 
 
 //assign port
-const port = 4000;
+const port = process.env.PORT;
 app.listen(port, () => console.log(`server on ${port}...`))

@@ -2,6 +2,9 @@
     <div class="row">
         <div class="col-sm-6 ">
             <img src="{{MovieObj.profile}}" alt="" width="50%"  class="mt-4  i1  d-block mx-auto">
+            <button class="cart-button-add mt-3 mx-5 " style="background-color: #ff0000; border-radius: 3px;" (click)=" onProductSelect(MovieObj)">
+                <i class="fas fa-plus"></i>Watchlist
+            </button>
             <div class="col-sm-6 mt-5 head d-block mx-auto">
                 <h6 class="text-black">Rating    <span class="ms-5">{{MovieObj.rating}} <i class="fas fa-star text-warning"></i>   <span> <i class="fab fa-imdb text-warning "></i>  {{MovieObj.imdbrating}} </span>  </span></h6>
                 <h6 class="text-black">Genres   <span class="ms-5 genre ">{{MovieObj.genre}}</span></h6>
@@ -9,7 +12,7 @@
                 <h6 class="text-black">Language <span class="ms-4">{{MovieObj.language}}</span></h6>
                 <h6 class="text-black">Director  <span class="ms-4">{{MovieObj.director}}</span></h6> 
             </div>
-         
+           
         </div>
     <div class="col-sm-6 mt-5">
         <h3 class="text-black">{{MovieObj.name}} ({{MovieObj.year}})</h3>
@@ -22,4 +25,5 @@
     </div>
 
 </div>
+
 </div>

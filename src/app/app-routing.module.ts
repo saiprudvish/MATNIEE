@@ -17,6 +17,8 @@ import { TopmoviesComponent } from './topmovies/topmovies.component';
 import { TopratingComponent } from './toprating/toprating.component';
 import { TvshowsComponent } from './tvshows/tvshows.component';
 import { UpcommingComponent } from './upcomming/upcomming.component';
+import { UsercartComponent } from './usercart/usercart.component';
+import { ViewproductsComponent } from './viewproducts/viewproducts.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',component:MustwatchComponent,children:[
@@ -30,7 +32,11 @@ const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',com
 {path:'movies/:id',component:TopratingComponent},
 {path:'shows/:id',component:TopratingComponent},
 {path:'watchlist',component:WatchlistComponent},
-{path:'profile',component:ProfileComponent},
+{path:'profile',component:ProfileComponent,children:[
+  {path:"view-products",component:ViewproductsComponent},
+  {path:"view-cart",component:UsercartComponent},
+  {path:'',redirectTo:"/profile/view-products",pathMatch:"full"}
+]},
 {path:'login',component:LoginComponent},
 {path:'', redirectTo:'/login',pathMatch:'full'},
 {path:'prime',component:PrimeComponent},
@@ -41,10 +47,11 @@ const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',com
 {path:'aha/:id',component:RatingahaComponent},
 {path:'hotstar',component:HotstarComponent},
 {path:'hotstar/:id',component:RatingHotstarComponent},
-{path:'home/:id', component:MovieratingComponent}];;
+{path:'home/:id', component:MovieratingComponent},
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) }];;
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{useHash:true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
