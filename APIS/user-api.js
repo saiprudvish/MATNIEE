@@ -157,16 +157,20 @@ userApi.post("/add-to-cart",expressAsyncHandler(async (req,res,next)=>{
     let userCartCollectionObject = req.app.get("userCartCollectionObject")
 
     let newProdObject=req.body;
-    // console.log(newProdObject)
+     //console.log(newProdObject)
+     //console.log(newProdObject.productObject.name)
 
       //find usercartcollection 
      let userCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
-
+     //let userartObj = await userCartCollectionObject.findOne({ name : newProdObject.productObject.name })
+     //console.log(userartObj)
       //if usercartobj not there not existed
+
         if(userCartObj===null){
           //create new obj
+          
           let products=[];
-          if(newProdObject.productObject.name)
+
           products.push(newProdObject.productObject)
 
           let newUserCartObject = { username: newProdObject.username, products }
@@ -176,17 +180,20 @@ userApi.post("/add-to-cart",expressAsyncHandler(async (req,res,next)=>{
         await userCartCollectionObject.insertOne(newUserCartObject)
         res.send({message:"New Movie added"})
         }
+     
         else{
         //if existed
 
         //push productObject to products array
+    
+        console.log(newProdObject.productObject)
          userCartObj.products.push(newProdObject.productObject)
          //update document
         await userCartCollectionObject.updateOne({ username: newProdObject.username }, { $set: { ...userCartObj } })
         let latestCartObj = await userCartCollectionObject.findOne({ username: newProdObject.username })
-         res.send({ message: "New product Added", latestCartObj: latestCartObj })
+         res.send({ message: "New Movie Added", latestCartObj: latestCartObj })
         }
-    
+
 }))
 
 

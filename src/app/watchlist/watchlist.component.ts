@@ -13,8 +13,13 @@ export class WatchlistComponent implements OnInit {
 
   userCartObj;
   products=[];
-  
-  constructor(private userService:UserService) { }
+  status=true;
+  constructor(private userService:UserService,private router:Router) { }
+
+
+  onSelectImage(id){
+    this.router.navigateByUrl('home/'+id)
+  }
 
   ngOnInit(): void {
     let username=localStorage.getItem("username")
@@ -23,11 +28,12 @@ export class WatchlistComponent implements OnInit {
 
        
         if(res["message"]==='Watchlist-empty'){
-          alert("User cart is empty")
+          this.status=false;
+          alert("User watchlist is empty")
         }
         else{
-          
             this.userCartObj=res["message"]
+          
             
           
         }

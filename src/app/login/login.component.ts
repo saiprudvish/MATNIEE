@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.us.userLoginStatus=true;
             //navigate to user profile
             if(userCredentials.type==="user"){
-               this.router.navigateByUrl('/profile')
+               this.router.navigateByUrl('/home')
             }
             if(userCredentials.type==="admin"){
               this.router.navigateByUrl("/admin")

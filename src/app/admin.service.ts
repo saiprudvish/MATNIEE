@@ -21,6 +21,7 @@ export class AdminService {
   getProducts():Observable<any>{
 
     return this.hc.get('/product/getproducts')
-
+  
+ 
 }
 }

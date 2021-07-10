@@ -1,9 +1,12 @@
 <h1 class="text-dark mt-5">Watchlist</h1>
 <hr class="text-dark ">
+<div *ngIf="!status">
+    <h1>NO MOVIE ADDED</h1>
+</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-6 g-4 mt-5 mb-5">
 <div class="col" *ngFor="let product of userCartObj.products">
 
 
-    <img src={{product.profile}} width="150px" class="mt-5" alt="">
+    <a (click)="onSelectImage(product.id)"><img src={{product.profile}} width="150px" class="mt-5" alt=""></a>
 </div>
 </div>

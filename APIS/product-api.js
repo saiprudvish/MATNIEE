@@ -20,13 +20,13 @@ productApi.post('/add-product', multerObj.single('photo'), expressErrorHandler(a
 
     //if proudct is existed
     if (product !== null) {
-        res.send({ message: "Product already existed" })
+        res.send({ message: "Movie already existed" })
     }
     else {
         newProduct.productImage = req.file.path;
         delete newProduct.photo;
         await productCollectionObject.insertOne(newProduct)
-        res.send({ message: "New product added" })
+        res.send({ message: "New Movie added" })
     }
 
 

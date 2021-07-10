@@ -13,6 +13,8 @@ export class AddProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+ 
+
   file:File;
 
   selectFile(event){
