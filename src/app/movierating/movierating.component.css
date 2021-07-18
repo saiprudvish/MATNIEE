@@ -43,6 +43,7 @@ h5{
     font-size: 16px;
     /* margin-left: 5px; */
 }
+
 .genre{
     border: solid 1px black;
     border-radius: 5px;
@@ -55,4 +56,8 @@ h5{
     .head{
         padding: 5px 30px;
     }
+}
+.cart{
+    border:solid darkgrey 8px;
+    border-radius: 14px;
 }

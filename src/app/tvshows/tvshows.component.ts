@@ -16,6 +16,7 @@ export class TvshowsComponent implements OnInit {
       userData=>{
         //assign movies
         this.TopShows=userData;
+        console.log(this.TopShows)
 
        
       },

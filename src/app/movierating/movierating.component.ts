@@ -9,10 +9,15 @@ import { UserService } from '../user.service';
   styleUrls: ['./movierating.component.css']
 })
 export class MovieratingComponent implements OnInit {
-
+  
+  
+  statu=true;
+  status=true;
+  
   MovieObj;
-  constructor(private ar:ActivatedRoute,private fs:FirstService,private userService:UserService) { }
-    
+  constructor(private ar:ActivatedRoute,private fs:FirstService,public userService:UserService) { 
+ 
+}
     //create a custom event
 
 
@@ -34,25 +39,76 @@ export class MovieratingComponent implements OnInit {
   }
 
   //movie selected by user to add in watchlist
-  onProductSelect(productObject){
-    // console.log(productObject)
-    let username=localStorage.getItem("username")
+//product selected by user
+onProductSelect(productObject){
 
-    let newUserProductObj={username,productObject}
-    //  console.log(newUserProductObj)
-     //product selected by user
   
-   this.userService.sendProductToUserCart(newUserProductObj).subscribe(
-     res=>{
-      alert(res['message'])
+     this.status=false;
+  
+  
 
-     },
-     err=>{
-       console.log("err in posting product to cart ",err)
-       alert("Something wrong in adding product to cart...")
-     }
-   )
+   
+  let username=localStorage.getItem("username")
 
-  }
+  let newUserProductObj={username,productObject}
+
+ this.userService.sendProductToUserCart(newUserProductObj).subscribe(
+   res=>{
+     alert(res['message'])
+     this.userService.updateDataObservable(res.latestCartObj)
+   },
+   err=>{
+     console.log("err in posting product to cart ",err)
+     alert("Something wrong in adding product to cart...")
+   }
+ )
+
+}
+
+onWatchSelect(productObject){
+
+ // this.status=false;
+ this.statu=false;
+
+ 
+let username=localStorage.getItem("username")
+
+let newUserProductObj={username,productObject}
+
+this.userService.sendWatchs(newUserProductObj).subscribe(
+ res=>{
+   alert(res['message'])
+   this.userService.updateDataObservable(res.latestCartObj)
+ },
+ err=>{
+   console.log("err in posting product to cart ",err)
+   alert("Something wrong in adding product to cart...")
+ }
+)
+
+}
+
+  onProductDelete(productObject){
+        //console.log(productObject)
+        
+      
+      
+        let username=localStorage.getItem("username")
+        let newUserProductObj={username,productObject}
+          //console.log(newUserProductObj)
+          //product deleted by user
+          this.userService.RemoveProductFromUserCart(newUserProductObj).subscribe(
+            res=>{
+             alert(res['message'])
+             this.userService.updateDataObservable(res.latestCartObj)
+          
+            },
+            err=>{
+              console.log("err in posting product to cart ",err)
+              alert("Something wrong in adding product to cart...")
+            }
+          )
+
+}
 
 }

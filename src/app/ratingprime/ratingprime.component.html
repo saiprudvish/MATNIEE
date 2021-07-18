@@ -12,6 +12,24 @@
          
         </div>
     <div class="col-sm-6 mt-5">
+        <div class="text-center">
+       
+    
+            <button   *ngIf="statu" class="cart me-5" (click)="onWatchSelect(primeObj)">
+                <i class="fas fa-eye"></i>
+            </button>
+            <button *ngIf="!statu" class="cart me-5" >
+                <i class="fas fa-check"></i>
+            </button> 
+            <button  *ngIf="status" class="cart  me-4" (click)=" onProductSelect(primeObj)">
+                <i class="fas fa-plus fy"></i>
+            </button>
+            <button *ngIf="!status" class="cart me-3" >
+                <i class="fas fa-check"></i>
+            </button> 
+        
+            </div>
+            <pre class=" text-center">Watched      Watchlist</pre>
         <h3 class=" text-black">{{primeObj.name}} ({{primeObj.year}})</h3>
         <h4 class=" text-black mt-5">Cast</h4>
         <h5 class=" text-black mt-3">{{primeObj.cast}}</h5>

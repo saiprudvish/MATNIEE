@@ -2,9 +2,7 @@
     <div class="row">
         <div class="col-sm-6 ">
             <img src="{{ahaObj.profile}}" alt="" width="50%"  class="mt-4  i1  d-block mx-auto">
-            <button class="cart-button-add mt-3 mx-5 " style="background-color: #ff0000; border-radius: 3px;" (click)=" onProductSelect(ahaObj)">
-                <i class="fas fa-plus"></i>Watchlist
-            </button>
+        
             <div class="col-sm-6 mt-5 head d-block mx-auto">
                 <h6 class="text-black">Rating    <span class="ms-5">{{ahaObj.rating}} <i class="fas fa-star text-warning"></i>   <span> <i class="fab fa-imdb text-warning "></i>  {{ahaObj.imdbrating}} </span>  </span></h6>
                 <h6 class="text-black ">Genres   <span class="ms-5 genre ">{{ahaObj.genre}}</span></h6>
@@ -15,6 +13,8 @@
          
         </div>
     <div class="col-sm-6 mt-5">
+       
+   
         <h3 class=" text-black">{{ahaObj.name}} ({{ahaObj.year}})</h3>
         <h4 class=" text-black mt-5">Cast</h4>
         <h5 class=" text-black mt-3">{{ahaObj.cast}}</h5>

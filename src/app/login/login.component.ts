@@ -25,14 +25,15 @@ export class LoginComponent implements OnInit {
             localStorage.setItem("username",res.username)
             localStorage.setItem("userObj",JSON.stringify(res.userObj))
     //update userloginstatus
-    this.us.userLoginStatus=true;
-            //navigate to user profile
-            if(userCredentials.type==="user"){
-               this.router.navigateByUrl('/home')
-            }
-            if(userCredentials.type==="admin"){
-              this.router.navigateByUrl("/admin")
-              }
+          this.us.userLoginStatus=true;
+          //navigate to home
+          this.router.navigateByUrl('/home')
+          //   if(userCredentials.type==="user"){
+          //      this.router.navigateByUrl('/home')
+          //   }
+          //   if(userCredentials.type==="admin"){
+          //     this.router.navigateByUrl("/admin")
+          //     }
           }
           else{
             alert(res.message)

@@ -13,12 +13,15 @@ import { RatingHotstarComponent } from './rating-hotstar/rating-hotstar.componen
 import { RatingahaComponent } from './ratingaha/ratingaha.component';
 import { RatingnetflixComponent } from './ratingnetflix/ratingnetflix.component';
 import { RatingprimeComponent } from './ratingprime/ratingprime.component';
+import { ShowsratingComponent } from './showsrating/showsrating.component';
 import { TopmoviesComponent } from './topmovies/topmovies.component';
 import { TopratingComponent } from './toprating/toprating.component';
 import { TvshowsComponent } from './tvshows/tvshows.component';
 import { UpcommingComponent } from './upcomming/upcomming.component';
 import { UsercartComponent } from './usercart/usercart.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 import { ViewproductsComponent } from './viewproducts/viewproducts.component';
+import { WatchedComponent } from './watched/watched.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',component:MustwatchComponent,children:[
@@ -30,8 +33,13 @@ const routes: Routes =  [{path:'home',component:HomeComponent},{path:'watch',com
 {path:'upcomming',component:UpcommingComponent},
 
 {path:'movies/:id',component:TopratingComponent},
-{path:'shows/:id',component:TopratingComponent},
-{path:'watchlist',component:WatchlistComponent},
+{path:'shows/:id',component:ShowsratingComponent},
+{path:'profiled',component:UserprofileComponent,children:[
+  {path:"watched",component:WatchedComponent},
+  {path:"watchlist",component:WatchlistComponent},
+  {path:'',redirectTo:"/profiled/watched",pathMatch:"full"}
+  
+]},
 {path:'profile',component:ProfileComponent,children:[
   {path:"view-products",component:ViewproductsComponent},
   {path:"view-cart",component:UsercartComponent},

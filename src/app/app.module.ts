@@ -35,6 +35,8 @@ import { HTTP_INTERCEPTORS} from '@angular/common/http';
 import { AuthorizationService } from './authorization.service';
 import { UsercartComponent } from './usercart/usercart.component';
 import { SharedModule } from './shared/shared.module';
+import { WatchedComponent } from './watched/watched.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,9 @@ import { SharedModule } from './shared/shared.module';
     ShowsratingComponent,
     SearchPipe,
     ProfileComponent,
-    UsercartComponent
+    UsercartComponent,
+    WatchedComponent,
+    UserprofileComponent
   ],
   imports: [
     BrowserModule,

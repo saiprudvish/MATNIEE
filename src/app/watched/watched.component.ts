@@ -1,36 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { FirstService } from '../first.service';
-import { ProductdetailsComponent } from '../productdetails/productdetails.component';
 import { UserService } from '../user.service';
 
 @Component({
-  selector: 'app-watchlist',
-  templateUrl: './watchlist.component.html',
-  styleUrls: ['./watchlist.component.css']
+  selector: 'app-watched',
+  templateUrl: './watched.component.html',
+  styleUrls: ['./watched.component.css']
 })
-export class WatchlistComponent implements OnInit {
+export class WatchedComponent implements OnInit {
 
   userCartObj;
   products=[];
-  userObj;
-  constructor(private us:UserService,private router:Router) { }
+  
+  constructor(private userService:UserService,private router:Router) { }
+userObj;
+count;
 
   onSelectImage(id){
     this.router.navigateByUrl('home/'+id)
   }
 
   ngOnInit(): void {
-      
     let username=localStorage.getItem("username")
-    this.us.getProductsFromUserCart(username).subscribe(
+    this.userService.getWatchs(username).subscribe(
       res=>{
 
        
-        if(res["message"]==='Watchlist-empty'){
+        if(res["message"]==='Watched-empty'){
         
-          alert("User watchlist is empty")
+          alert("User watchedlist is empty")
         }
         else{
             this.userCartObj=res["message"]
@@ -45,4 +43,5 @@ export class WatchlistComponent implements OnInit {
       }
     )
   }
+
 }

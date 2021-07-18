@@ -19,11 +19,11 @@
         <a class="nav-link text-white" routerLink='upcomming' routerLinkActive="active">Upcomming</a>
       </li>
       <li class="nav-item " *ngIf="us.userLoginStatus">
-        <a class="nav-link text-white"  routerLink="watchlist" routerLinkActive="active">Watchlist</a>
+        <a class="nav-link text-white"  routerLink="profiled" routerLinkActive="active">Profile</a>
       </li>
       <!-- <li class="nav-item " *ngIf="us.userLoginStatus">
         <a class="nav-link text-white"  routerLink="profile" routerLinkActive="active">Profile</a>
-      </li> -->
+      </li> --> 
       <li class="nav-item" *ngIf="!us.userLoginStatus">
         <a class="nav-link text-white" routerLink="login" routerLinkActive="active" data-bs-toggle="collapse"
           data-bs-target=".navbar-collapse.show">Login</a>
@@ -78,7 +78,7 @@
                             </select>
                             <label for="floatingSelect">Gender</label>
                           </div>
-
+                       
                           <div class="row g-3 mb-3 ms-sm-3 me-sm-3">
                             <div class="col-md">
                               <div class="form-floating">
@@ -151,7 +151,6 @@
     </ul>
 
   </div>
-  
 </nav>
 
 
@@ -175,8 +174,8 @@
   <h5 class=" pt2 text-dark">Download Our App</h5>
 
   <p>Download App for Android and ios mobile phone</p>
-  <div class="my-4"> <button class="btn btn-outline-dark btn-icon-text bg-white text-dark p-1"> <i class="fab fa-google-play btn-icon-prepend mdi-36px"></i> <span class="d-inline-block text-left"> <small class="font-weight-light d-block">Get it on the</small> Google Play</span> 
-  </button> <button class="btn btn-outline-dark btn-icon-text bg-white text-dark p-1 mx-3"> <i class="fab fa-apple btn-icon-prepend mdi-36px"></i> <span class="d-inline-block text-left"> <small class="font-weight-light d-block">Download on the</small> App Store</span> </button> </div>
+  <div class="my-4"> <button class="btn btn-outline-dark btn-icon-text bg-white text-dark p-1 mx-2"> <i class="fab fa-google-play btn-icon-prepend mdi-36px"></i> <span class="d-inline-block text-left"> <small class="font-weight-light d-block">Get it on the</small> Google Play</span> 
+  </button> <button class="btn btn-outline-dark btn-icon-text mt-4 bg-white text-dark p-1 "> <i class="fab fa-apple btn-icon-prepend mdi-36px"></i> <span class="d-inline-block text-left"> <small class="font-weight-light d-block">Download on the</small> App Store</span> </button> </div>
   </div>
 
   <div class=" col-sm-4 col-md col-6 col mt-5">
